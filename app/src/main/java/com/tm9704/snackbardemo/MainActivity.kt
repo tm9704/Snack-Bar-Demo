@@ -1,7 +1,11 @@
 package com.tm9704.snackbardemo
 
+import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.snackbar.Snackbar
@@ -11,13 +15,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setSupportActionBar(toolbar)
-        
-        image_button.setOnClickListener {view ->
+        val imageButton: ImageButton = findViewById(R.id.image_button)
+        imageButton.setOnClickListener {view ->
             Snackbar.make(view, "You have clicked image button.", Snackbar.LENGTH_LONG).show()
         }
 
-        btn_alert_dialog.setOnClickListener {view ->
+        val btnAlertDialog: Button = findViewById(R.id.btn_alert_dialog)
+        btnAlertDialog.setOnClickListener {view ->
             alertDialogFunction()
         }
     }
@@ -51,6 +55,22 @@ class MainActivity : AppCompatActivity() {
 
         alertDialog.setCancelable(false)
         alertDialog.show()
+    }
+
+    private fun customDialogFunction() {
+        val customDialog = Dialog(this)
+
+        customDialog.setContentView(R.layout.dialog_custom)
+        customDialog.findViewById<TextView>(R.id.tv_submit).setOnClickListener {
+            Toast.makeText(applicationContext, "clicked submit", Toast.LENGTH_LONG).show()
+            customDialog.dismiss()
+        }
+        customDialog.findViewById<TextView>(R.id.tv_cancel).setOnClickListener {
+            Toast.makeText(applicationContext, "clicked cancel", Toast.LENGTH_LONG).show()
+            customDialog.dismiss()
+        }
+
+        customDialog.show()
     }
 }
 
